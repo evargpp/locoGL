@@ -1,15 +1,17 @@
 #include "Train.h"
 
+#include "shaderprogram.h"
+
 Train::Train()
 {
 	basePosition = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	this->kolo1 = new BasicModel("01_os_2.obj");
+	this->kolo1 = new BasicModel("01_os_1.obj");
 	this->kolo2 = new BasicModel("01_os_2.obj");
 	this->kolo3 = new BasicModel("01_os_2.obj");
-	this->kolo4 = new BasicModel("01_os_2.obj");
+	this->kolo4 = new BasicModel("01_os_4.obj");
 	this->kolo5 = new BasicModel("01_os_2.obj");
-	this->kolo6 = new BasicModel("01_os_2.obj");
+	this->kolo6 = new BasicModel("01_os_6.obj");
 }
 
 void Train::Move(float step)
@@ -21,6 +23,8 @@ void Train::Draw()
 	float angle_x = 0;
 	float angle_y = 0;
 	
+	glUniform4f(spLambert->u("color"), 0, 1, 1, 1); //Ustaw kolor rysowania obiektu
+
 	// Model - kola
 	kolo1->Clear();
 	kolo1->RotateX(angle_x);

@@ -1,28 +1,86 @@
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "OpenGLCommon.h"
 
 #include "Camera.h"
 
 
 Camera::Camera() {
-	this->position = glm::vec3(0.0f, 1500.0f, 30000.0f);
-	this->lookPoint = glm::vec3(0.0f, 0.0f, 0.0f);
-	this->upDirection = glm::vec3(0.0f, 0.0f, -1.0f);
-	this->fov = 0.0f;
-	this->aspect = 0.0f;
-	this->nearPlane = 0.0f;
-	this->farPlane = 0.0f;
+	//position = glm::vec3(0.0f, 972.0f, 30000.0f);
+	position = glm::vec3(0.0f, 0.0f, 0.0f);
+	lookPoint = glm::vec3(0.0f, 0.0f, 0.0f);
+	upDirection = glm::vec3(0.0f, 1.0f, 0.0f);
+	fov = 0.0f;
+	aspect = 0.0f;
+	nearPlane = 0.0f;
+	farPlane = 0.0f;
+	M = glm::mat4(1.0f);
+	
+	hAngle = 0;
+	vAngle = glm::radians(15.0f);
+	zoom = 30000;
+}
+
+void Camera::RotateX(float angle) {
+	M = glm::rotate(M, angle, glm::vec3(1.0f, 0.0f, 0.0f));
+};
+
+
+void Camera::RotateY(float angle) {
+	M = glm::rotate(M, angle, glm::vec3(0.0f, 1.0f, 0.0f));
+};
+
+
+void Camera::RotateZ(float angle) {
+	M = glm::rotate(M, angle, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
 
+void Camera::setHAngle(float angle)
+{
+	hAngle = angle;
+}
+
+
+void Camera::setVAngle(float angle)
+{
+	vAngle = angle;
+}
+
+
+void Camera::deltaHAngle(float angle)
+{
+	hAngle += angle;
+}
+
+
+void Camera::deltaVAngle(float angle)
+{
+	vAngle += angle;
+	if (vAngle > glm::half_pi<float>())
+		vAngle = glm::half_pi<float>();
+	if (vAngle <= 0)
+		vAngle = glm::radians(1.0f);
+
+}
+
+void Camera::deltaZoom(float delta)
+{
+	zoom += delta;
+}
+
+
+
 glm::mat4 Camera::GetViewMatrix() {
+
+	position.x = zoom * sin(vAngle) * cos(hAngle);
+	position.y = zoom * cos(vAngle);
+	position.z = zoom * sin(vAngle) * sin(hAngle);
+	
+	printf("angle: %f, %f zoom: %f X: %f Y: %f Z: %f\n", glm::degrees(hAngle), glm::degrees(vAngle), zoom, position.x, position.y, position.z);
+
 	return glm::lookAt(
-		this->position, 
-		this->lookPoint,
-		this->upDirection
+		position, 
+		lookPoint,
+		upDirection
 	);
 };
 
