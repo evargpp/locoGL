@@ -24,6 +24,7 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="cube.h" />
+    <ClInclude Include="Infrastructure.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="OpenGLCommon.h" />
@@ -38,6 +39,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="config.cpp" />
     <ClCompile Include="cube.cpp" />
+    <ClCompile Include="Infrastructure.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main_file.cpp" />
     <ClCompile Include="Model.cpp" />
