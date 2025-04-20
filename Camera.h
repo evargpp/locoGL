@@ -14,6 +14,18 @@ class Camera
         glm::mat4 GetViewMatrix();
         glm::mat4 GetProjectionMatrix();
 
+        void RotateX(float angle);
+        void RotateY(float angle);
+        void RotateZ(float angle);
+
+        void setHAngle(float angle);
+        void setVAngle(float angle);
+
+        void deltaHAngle(float angle);
+        void deltaVAngle(float angle);
+
+        void deltaZoom(float delta);
+
         //lm::mat4 GetViewMatrix() const;
 
         //void SetPerspective(float fovDeg, float aspect, float near, float far);
@@ -27,4 +39,10 @@ class Camera
         glm::vec3 upDirection;
 
         float fov, aspect, nearPlane, farPlane;
+
+        float zoom; 
+        float hAngle;
+        float vAngle;
+
+        glm::mat4 M;
 };
