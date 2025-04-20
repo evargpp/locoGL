@@ -1,19 +1,14 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <stdlib.h>
+#include <stdio.h>
 
-#include "tiny_obj_loader.h"
+#include "OpenGLCommon.h"
 
 #include "BasicModel.h"
 #include "shaderprogram.h"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <stdlib.h>
-#include <stdio.h>
 
 namespace Models {
 

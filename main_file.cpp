@@ -4,20 +4,14 @@
 #define STB_EASY_FONT_IMPLEMENTATION
 #define TINYOBJLOADER_IMPLEMENTATION 
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include "OpenGLCommon.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <chrono>
 
-#include "tiny_obj_loader.h"
 #include "constants.h"
-#include "lodepng.h"
 #include "shaderprogram.h"
-#include "stb_easy_font.h"
 
 #include "BasicModel.h"
 #include "Camera.h"

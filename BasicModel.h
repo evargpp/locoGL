@@ -1,8 +1,9 @@
 #ifndef BASIC_MODEL_H
 #define BASIC_MODEL_H
 
-#include "Model.h"
 #include <string>
+
+#include "Model.h"
 
 
 namespace Models {
