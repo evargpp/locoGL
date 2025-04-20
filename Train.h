@@ -15,6 +15,9 @@ public:
 	void RotateY(float angle);
 	void RotateZ(float angle);
 
+	void setAcceleration(float acc);
+	float getAcceleration();
+	float getSpeed();
 
 private:
 	glm::vec3 basePosition;
@@ -25,5 +28,18 @@ private:
 	BasicModel* kolo4;
 	BasicModel* kolo5;
 	BasicModel* kolo6;
+	BasicModel* ostoja;
+
+	float kolo1Angle = 0.0f;
+	float kolo2Angle = 0.0f;
+	float kolo6Angle = 0.0f;
+
+	float acceleration;
+	float speed;
+	float maxSpeed = 10.0f;
+	float lastTime = glfwGetTime();
+
+	void calculateSpeed();
+	void calculatePosition();
 };
 
