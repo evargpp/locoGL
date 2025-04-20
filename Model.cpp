@@ -1,15 +1,11 @@
 #include <iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include <chrono>
 #include <stdlib.h>
 #include <stdio.h>
-#include <chrono>
+
+#include "OpenGLCommon.h"
 
 #include "model.h"
-#include "tiny_obj_loader.h"
 #include "config.h"
 #include "shaderprogram.h"
 

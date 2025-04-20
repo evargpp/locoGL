@@ -1,15 +1,12 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include <GL/glew.h>
-#include <vector>
-#include <glm/glm.hpp>
-#include <GLFW/glfw3.h>
-#include "constants.h"
 #include <string>
 #include <vector>
-#include <glm/ext/vector_float4.hpp>
 
+#include "OpenGLCommon.h"
+
+#include "constants.h"
 
 namespace Models {
 
