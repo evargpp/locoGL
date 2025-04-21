@@ -29,6 +29,16 @@ private:
 	BasicModel* kolo5;
 	BasicModel* kolo6;
 	BasicModel* ostoja;
+	BasicModel* cylinderLewy;
+	BasicModel* cylinderPrawy;
+	BasicModel* krzyzulec;
+
+	BasicModel* wiazar12;
+	BasicModel* wiazar23;
+	BasicModel* wiazar34;
+
+	BasicModel* korbowod;
+	BasicModel* tlok;
 
 	float kolo1Angle = 0.0f;
 	float kolo2Angle = 0.0f;

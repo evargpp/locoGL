@@ -14,9 +14,9 @@ Camera::Camera() {
 	farPlane = 0.0f;
 	M = glm::mat4(1.0f);
 	
-	hAngle = 0;
-	vAngle = glm::radians(15.0f);
-	zoom = 30000;
+	hAngle = glm::radians(-120.0f);
+	vAngle = glm::radians(60.0f);
+	zoom = 16000;
 }
 
 void Camera::RotateX(float angle) {
@@ -67,6 +67,11 @@ void Camera::deltaZoom(float delta)
 	zoom += delta;
 }
 
+void Camera::ShowParams()
+{
+	printf("hAngle: %f, vAngle: %f, zoom: %f, X: %f Y: %f, Z: %f\n", glm::degrees(hAngle), glm::degrees(vAngle), zoom, position.x, position.y, position.z);
+}
+
 
 
 glm::mat4 Camera::GetViewMatrix() {
@@ -75,7 +80,6 @@ glm::mat4 Camera::GetViewMatrix() {
 	position.y = zoom * cos(vAngle);
 	position.z = zoom * sin(vAngle) * sin(hAngle);
 	
-	//printf("angle: %f, %f zoom: %f X: %f Y: %f Z: %f\n", glm::degrees(hAngle), glm::degrees(vAngle), zoom, position.x, position.y, position.z);
 
 	return glm::lookAt(
 		position, 
