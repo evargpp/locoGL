@@ -34,7 +34,7 @@ struct AppParams {
 	int screenWidth;
 	int screenHeight;
 	std::string name;
-} appParams = { 1000, 800, "Hello locoGL!" };
+} appParams = { 2000, 1600, "Hello locoGL!" };
 
 //Procedura obsługi błędów
 void error_callback(int error, const char* description) {
@@ -71,6 +71,43 @@ void key_callback(
 		if (key == GLFW_KEY_PAGE_DOWN) {
 			camera.deltaZoom(-1000);
 		}
+
+		if (key == GLFW_KEY_1) {
+			train.setAcceleration(1.0f);
+		}
+
+		if (key == GLFW_KEY_2) {
+			train.setAcceleration(2.0f);
+		}
+
+		if (key == GLFW_KEY_3) {
+			train.setAcceleration(3.0f);
+		}
+
+		if (key == GLFW_KEY_4) {
+			train.setAcceleration(4.0f);
+		}
+
+		if (key == GLFW_KEY_0) {
+			train.setAcceleration(0.0f);
+		}
+
+		if (key == GLFW_KEY_5) {
+			train.setAcceleration(-1.0f);
+		}
+
+		if (key == GLFW_KEY_6) {
+			train.setAcceleration(-2.0f);
+		}
+
+		if (key == GLFW_KEY_7) {
+			train.setAcceleration(-3.0f);
+		}
+
+		if (key == GLFW_KEY_8) {
+			train.setAcceleration(-4.0f);
+		}
+
 
 	}
 	if (action == GLFW_RELEASE) {
@@ -114,7 +151,9 @@ void freeOpenGLProgram(GLFWwindow* window) {
 //Procedura rysująca zawartość sceny
 void drawScene(GLFWwindow* window) {
 	//************Tutaj umieszczaj kod rysujący obraz******************l
+	glClearColor(0.309f, 1.0f, 0.905f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Wyczyść bufor koloru i bufor głębokości
+
 
 	//ustawienia kamery
 	glm::mat4 P = camera.GetProjectionMatrix();
@@ -128,6 +167,7 @@ void drawScene(GLFWwindow* window) {
 
 	infrastructure.Draw();
 	train.Draw();
+	printf("acc: %f cs: %f\n", train.getAcceleration(), train.getSpeed());
 
 	//koniec sceny
 	glfwSwapBuffers(window); //Skopiuj bufor tylny do bufora przedniego
@@ -165,7 +205,7 @@ int main(void)
 	initOpenGLProgram(window); //Operacje inicjujące
 
 	//Główna pętla
-	glfwSetTime(0); //Wyzeruj licznik czasu
+	//glfwSetTime(0); //Wyzeruj licznik czasu
 
 	std::string windowTitle;
 
@@ -173,7 +213,7 @@ int main(void)
 	{
 		glfwSetWindowTitle(window, windowTitle.c_str());
 
-		glfwSetTime(0); //Wyzeruj licznik czasu
+		//glfwSetTime(0); //Wyzeruj licznik czasu
 		drawScene(window); //Wykonaj procedurę rysującą
 		glfwPollEvents(); //Wykonaj procedury callback w zalezności od zdarzeń jakie zaszły.
 		//printf("cam: %f, %f, %f\n", cam_x,cam_y,cam_z);

@@ -75,7 +75,7 @@ glm::mat4 Camera::GetViewMatrix() {
 	position.y = zoom * cos(vAngle);
 	position.z = zoom * sin(vAngle) * sin(hAngle);
 	
-	printf("angle: %f, %f zoom: %f X: %f Y: %f Z: %f\n", glm::degrees(hAngle), glm::degrees(vAngle), zoom, position.x, position.y, position.z);
+	//printf("angle: %f, %f zoom: %f X: %f Y: %f Z: %f\n", glm::degrees(hAngle), glm::degrees(vAngle), zoom, position.x, position.y, position.z);
 
 	return glm::lookAt(
 		position, 
