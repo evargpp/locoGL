@@ -169,10 +169,10 @@ void drawScene(GLFWwindow* window) {
 	glm::mat4 V = camera.GetViewMatrix();
 
 	//ustawienie programu cieniujacego
-	spLambert->use(); //Aktyeuj program cieniujący
-	glUniform4f(spLambert->u("color"), 0, 1, 0, 1); //Ustaw kolor rysowania obiektu
-	glUniformMatrix4fv(spLambert->u("P"), 1, false, glm::value_ptr(P)); //Załaduj do programu cieniującego macierz rzutowania
-	glUniformMatrix4fv(spLambert->u("V"), 1, false, glm::value_ptr(V)); //Załaduj do programu cieniującego macierz widoku
+	shader->use(); //Aktyeuj program cieniujący
+	glUniform4f(shader->u("color"), 0, 1, 0, 1); //Ustaw kolor rysowania obiektu
+	glUniformMatrix4fv(shader->u("P"), 1, false, glm::value_ptr(P)); //Załaduj do programu cieniującego macierz rzutowania
+	glUniformMatrix4fv(shader->u("V"), 1, false, glm::value_ptr(V)); //Załaduj do programu cieniującego macierz widoku
 
 	infrastructure.Draw();
 	train.Draw();
