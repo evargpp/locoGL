@@ -42,7 +42,7 @@ void Train::Draw()
 	float angle_x = 0;
 	float angle_y = 0;
 	
-	glUniform4f(spLambert->u("color"), 0, 1, 1, 1); //Ustaw kolor rysowania obiektu
+	glUniform4f(shader->u("color"), 0, 1, 1, 1); //Ustaw kolor rysowania obiektu
 
 
 	// Model - kola
@@ -83,8 +83,8 @@ void Train::Draw()
 	kolo6->drawSolid();
 
 	// ostoja
-	glUniform4f(spLambert->u("color"), 0, 0, 0, 1); //Ustaw kolor rysowania obiektu
-	glUniform4f(spLambert->u("color"), 0, 1, 1, 1); //Ustaw kolor rysowania obiektu
+	glUniform4f(shader->u("color"), 0, 0, 0, 1); //Ustaw kolor rysowania obiektu
+	glUniform4f(shader->u("color"), 0, 1, 1, 1); //Ustaw kolor rysowania obiektu
 
 	ostoja->Clear();
 	ostoja->Translate(40.0f, 1050.0f, -460.0f);
@@ -96,7 +96,7 @@ void Train::Draw()
 	ostoja->Translate(basePosition); 
 	ostoja->drawSolid();
 
-	glUniform4f(spLambert->u("color"), 0, 1, 1, 1); //Ustaw kolor rysowania obiektu
+	glUniform4f(shader->u("color"), 0, 1, 1, 1); //Ustaw kolor rysowania obiektu
 
 	// cylindel lewy
 	cylinderLewy->Clear();

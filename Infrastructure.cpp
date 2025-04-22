@@ -35,7 +35,7 @@ void Infrastructure::Draw()
 		podklad->drawSolid(); //Narysuj obiekt
 	}
 
-	glUniform4f(spLambert->u("color"), 0, 1, 1, 1); //Ustaw kolor rysowania obiektu
+	glUniform4f(shader->u("color"), 0, 1, 1, 1); //Ustaw kolor rysowania obiektu
 
 	// Model - szyny
 	szyna->Clear();

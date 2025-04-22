@@ -37,7 +37,7 @@ void BasicModel::drawSolid(bool smooth) {
 	glVertexAttribPointer(2, 4, GL_FLOAT, false, 0, texCoords);
 	glVertexAttribPointer(3, 4, GL_FLOAT, false, 0, colors);
 
-	glUniformMatrix4fv(spLambert->u("M"), 1, false, glm::value_ptr(this->M));
+	glUniformMatrix4fv(shader->u("M"), 1, false, glm::value_ptr(this->M));
 	glDrawArrays(GL_TRIANGLES, 0, vertexCount);
 
 	glDisableVertexAttribArray(0);
