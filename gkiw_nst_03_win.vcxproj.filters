@@ -54,6 +54,9 @@
     <ClInclude Include="OpenGLCommon.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
+    <ClInclude Include="Infrastructure.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cube.cpp">
@@ -81,6 +84,9 @@
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="Train.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Infrastructure.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,6 +119,12 @@
       <Filter>Pliki zasobów</Filter>
     </None>
     <None Include="v_textured.glsl">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="f_pytong.glsl">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="v_pytong.glsl">
       <Filter>Pliki zasobów</Filter>
     </None>
   </ItemGroup>

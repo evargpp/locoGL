@@ -13,6 +13,7 @@ class Camera
         //void Update(float dt); // Obs³uga wejœcia lub œledzenia lokomotywy
         glm::mat4 GetViewMatrix();
         glm::mat4 GetProjectionMatrix();
+        glm::vec3 GetPosition();
 
         void RotateX(float angle);
         void RotateY(float angle);

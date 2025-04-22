@@ -174,6 +174,17 @@ void drawScene(GLFWwindow* window) {
 	glUniformMatrix4fv(shader->u("P"), 1, false, glm::value_ptr(P)); //Załaduj do programu cieniującego macierz rzutowania
 	glUniformMatrix4fv(shader->u("V"), 1, false, glm::value_ptr(V)); //Załaduj do programu cieniującego macierz widoku
 
+	glm::vec3 lightPos(0.0f, 2000.0f, 2000.0f);
+	glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+	glm::vec3 objectColor(1.0f, 1.0f, 1.0f);
+	glm::vec3 viewPos = camera.GetPosition();
+
+	//glUseProgram(shader);
+	glUniform3fv(shader->u("lightPos"), 1, glm::value_ptr(lightPos));
+	glUniform3fv(shader->u("lightColor"), 1, glm::value_ptr(lightColor));
+	glUniform3fv(shader->u("objectColor"), 1, glm::value_ptr(objectColor));
+	glUniform3fv(shader->u("viewPos"), 1, glm::value_ptr(viewPos));
+
 	infrastructure.Draw();
 	train.Draw();
 	//printf("acc: %f cs: %f\n", train.getAcceleration(), train.getSpeed());

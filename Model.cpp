@@ -5,6 +5,10 @@
 
 #include "OpenGLCommon.h"
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 #include "model.h"
 #include "config.h"
 #include "shaderprogram.h"
@@ -96,8 +100,8 @@ void Model::loadModelFromFile(void) {
 				tinyobj::index_t idx = shapes[s].mesh.indices[index_offset + v];
 
 				tinyobj::real_t vx = attrib.vertices[3 * size_t(idx.vertex_index) + 0];
-				tinyobj::real_t vy = attrib.vertices[3 * size_t(idx.vertex_index) + 1];
-				tinyobj::real_t vz = attrib.vertices[3 * size_t(idx.vertex_index) + 2];
+				tinyobj::real_t vy = attrib.vertices[3 * size_t(idx.vertex_index) + 2];
+				tinyobj::real_t vz = attrib.vertices[3 * size_t(idx.vertex_index) + 1];
 
 				//internalVertices.push_back(vec4(vx / 0.03937f, vy / 0.03937f, vz / 0.03937f, 1.0f));
 				vv[v] = glm::vec4(vx / 0.03937f, vy / 0.03937f, vz / 0.03937f, 1.0f);
@@ -105,8 +109,8 @@ void Model::loadModelFromFile(void) {
 				// Check if `normal_index` is zero or positive. negative = no normal data
 				if (idx.normal_index >= 0) {
 					tinyobj::real_t nx = 1.0f * attrib.normals[3 * size_t(idx.normal_index) + 0];
-					tinyobj::real_t ny = 1.0f * attrib.normals[3 * size_t(idx.normal_index) + 1];
-					tinyobj::real_t nz = 1.0f * attrib.normals[3 * size_t(idx.normal_index) + 2];
+					tinyobj::real_t ny = 1.0f * attrib.normals[3 * size_t(idx.normal_index) + 2];
+					tinyobj::real_t nz = 1.0f * attrib.normals[3 * size_t(idx.normal_index) + 1];
 
 					const float normalFix = 1.0f;
 					//internalFaceNormals.push_back(vec4(normalFix*nx, normalFix*ny, normalFix*nz, 0.0f));
@@ -147,5 +151,65 @@ void Model::loadModelFromFile(void) {
 	vertexCount = internalVertices.size();
 	texCoords = (float*)internalTexCoords.data();
 
-};
+}
+
+//putfile.c_str(), Config::modelsFolder.c_str());
+
+void Model::loadModelFromFile2(void)
+{
+	Assimp::Importer importer;
+	std::string inputfile = Config::modelsFolder + modelFileName;
+
+	const aiScene* scene = importer.ReadFile(inputfile,
+		aiProcess_Triangulate |            // przekszta³æ wszystko w trójk¹ty
+		aiProcess_GenSmoothNormals |       // generuj normalne, jeœli ich nie ma
+		aiProcess_FlipUVs |                // zamieñ UV, jeœli trzeba
+		aiProcess_JoinIdenticalVertices   // optymalizacja
+//		aiProcess_ConvertToLeftHanded      // jeœli u¿ywasz leworêcznego uk³adu (DirectX-style)
+	);
+
+	if (!scene || !scene->HasMeshes()) {
+		std::cerr << "B³¹d ³adowania: " << importer.GetErrorString() << std::endl;
+		exit(1);
+	}
+
+	const aiMesh* mesh = scene->mMeshes[0]; // Bierzemy pierwsz¹ meshê
+
+	vertexCount = mesh->mNumVertices;
+
+	printf("ve %i\n", vertexCount);
+
+	// Alokacja pamiêci na tablice
+	vertices = new float[vertexCount * 3];
+	normals = new float[vertexCount * 3];
+	vertexNormals = new float[vertexCount * 3]; // Normalne wierzcho³ków
+	texCoords = new float[vertexCount * 2]; // Tekstury
+
+	for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
+		aiVector3D pos = mesh->mVertices[i];
+		aiVector3D norm = mesh->HasNormals() ? mesh->mNormals[i] : aiVector3D(0, 1, 0);
+		aiVector3D tex = mesh->HasTextureCoords(0) ? mesh->mTextureCoords[0][i] : aiVector3D(0, 0, 0);
+
+		// Zapisz wierzcho³ki
+		vertices[i * 3 + 0] = pos.x;
+		vertices[i * 3 + 1] = pos.y;
+		vertices[i * 3 + 2] = pos.z;
+
+		// Zapisz normalne
+		normals[i * 3 + 0] = norm.x;
+		normals[i * 3 + 1] = norm.y;
+		normals[i * 3 + 2] = norm.z;
+
+		// Zapisz normalne wierzcho³ków
+		vertexNormals[i * 3 + 0] = norm.x;
+		vertexNormals[i * 3 + 1] = norm.y;
+		vertexNormals[i * 3 + 2] = norm.z;
+
+		// Zapisz wspó³rzêdne tekstur
+		texCoords[i * 2 + 0] = tex.x;
+		texCoords[i * 2 + 1] = tex.y;
+	}
+
+}
+;
 

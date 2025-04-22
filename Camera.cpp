@@ -91,4 +91,10 @@ glm::mat4 Camera::GetViewMatrix() {
 
 glm::mat4 Camera::GetProjectionMatrix() {
     return glm::perspective(glm::radians(50.0f), 1.0f, 1.0f, 50000.0f);
-};
+}
+
+glm::vec3 Camera::GetPosition()
+{
+	return position;
+}
+;
