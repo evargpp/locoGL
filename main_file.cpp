@@ -41,6 +41,11 @@ void error_callback(int error, const char* description) {
 	fputs(description, stderr);
 }
 
+
+void showParams() {
+	camera.ShowParams();
+}
+
 void key_callback(
 	GLFWwindow* window,
 	int key,
@@ -108,6 +113,10 @@ void key_callback(
 			train.setAcceleration(-4.0f);
 		}
 
+		if (key == GLFW_KEY_SPACE) {
+			showParams();
+		}
+
 
 	}
 	if (action == GLFW_RELEASE) {
@@ -167,7 +176,7 @@ void drawScene(GLFWwindow* window) {
 
 	infrastructure.Draw();
 	train.Draw();
-	printf("acc: %f cs: %f\n", train.getAcceleration(), train.getSpeed());
+	//printf("acc: %f cs: %f\n", train.getAcceleration(), train.getSpeed());
 
 	//koniec sceny
 	glfwSwapBuffers(window); //Skopiuj bufor tylny do bufora przedniego

@@ -26,6 +26,7 @@ class Camera
 
         void deltaZoom(float delta);
 
+        void ShowParams();
         //lm::mat4 GetViewMatrix() const;
 
         //void SetPerspective(float fovDeg, float aspect, float near, float far);

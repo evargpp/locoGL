@@ -3,5 +3,5 @@
 #include "config.h"
 
 namespace Config {
-	std::string modelsFolder = "obj/";
+	std::string modelsFolder = "models/";
 }
