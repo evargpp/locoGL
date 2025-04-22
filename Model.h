@@ -8,6 +8,12 @@
 
 #include "constants.h"
 
+struct Vertex {
+	glm::vec3 position;
+	glm::vec3 normal;
+	glm::vec2 texCoord;
+};
+
 class Model {
 public:
 	int vertexCount;
@@ -20,6 +26,7 @@ public:
 	virtual void drawSolid(bool smooth) = 0;
 	virtual void drawWire(bool smooth = false);
 	virtual void loadModelFromFile(void);
+	virtual void loadModelFromFile2(void);
 
 	void Clear();
 	void RotateX(float angle);
