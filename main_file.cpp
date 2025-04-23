@@ -25,6 +25,11 @@ float cam_speed_x = 0.0f;
 float cam_speed_y = 0.0f;
 float cam_speed_z = 0.0f;
 
+
+float lightIntensity = 1.0f; // start od zera
+const float lightMax = 1.0f;
+const float fadeDuration = 1.0f; // sekundy
+
 Infrastructure infrastructure;
 Train train;
 Camera camera;
@@ -117,6 +122,14 @@ void key_callback(
 			showParams();
 		}
 
+		if (key == GLFW_KEY_Q) {
+			lightIntensity += 0.1f;
+		}
+
+		if (key == GLFW_KEY_W) {
+			lightIntensity -= 0.1f;
+		}
+
 
 	}
 	if (action == GLFW_RELEASE) {
@@ -139,6 +152,19 @@ void key_callback(
 }
 
 
+//void updateLight(float deltaTime) {
+//	if (elapsedTime < animationDuration) {
+//		elapsedTime += deltaTime;
+//		float t = elapsedTime / animationDuration;
+//		if (t > 1.0f) t = 1.0f;
+//
+//		lightIntensity = t; // linearny wzrost
+//
+//		GLfloat diffuse[] = { lightIntensity, lightIntensity, lightIntensity, 1.0f };
+//		glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+//	}
+//}
+
 //Procedura inicjująca
 void initOpenGLProgram(GLFWwindow* window) {
 	initShaders();
@@ -160,7 +186,9 @@ void freeOpenGLProgram(GLFWwindow* window) {
 //Procedura rysująca zawartość sceny
 void drawScene(GLFWwindow* window) {
 	//************Tutaj umieszczaj kod rysujący obraz******************l
-	glClearColor(0.309f, 1.0f, 0.905f, 1.0f);
+	//glClearColor(0.309f, 1.0f, 0.905f, 1.0f);
+	//glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Wyczyść bufor koloru i bufor głębokości
 
 
@@ -174,7 +202,7 @@ void drawScene(GLFWwindow* window) {
 	glUniformMatrix4fv(shader->u("P"), 1, false, glm::value_ptr(P)); //Załaduj do programu cieniującego macierz rzutowania
 	glUniformMatrix4fv(shader->u("V"), 1, false, glm::value_ptr(V)); //Załaduj do programu cieniującego macierz widoku
 
-	glm::vec3 lightPos(0.0f, 2000.0f, 2000.0f);
+	glm::vec3 lightPos(-13000.0f, 6000.0f, 10.0f);
 	glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 	glm::vec3 objectColor(1.0f, 1.0f, 1.0f);
 	glm::vec3 viewPos = camera.GetPosition();
@@ -184,6 +212,8 @@ void drawScene(GLFWwindow* window) {
 	glUniform3fv(shader->u("lightColor"), 1, glm::value_ptr(lightColor));
 	glUniform3fv(shader->u("objectColor"), 1, glm::value_ptr(objectColor));
 	glUniform3fv(shader->u("viewPos"), 1, glm::value_ptr(viewPos));
+
+	glUniform1f(shader->u("uLightIntensity"), lightIntensity);
 
 	infrastructure.Draw();
 	train.Draw();
@@ -233,7 +263,7 @@ int main(void)
 	{
 		glfwSetWindowTitle(window, windowTitle.c_str());
 
-		//glfwSetTime(0); //Wyzeruj licznik czasu
+        //glfwSetTime(0); //Wyzeruj licznik czasu
 		drawScene(window); //Wykonaj procedurę rysującą
 		glfwPollEvents(); //Wykonaj procedury callback w zalezności od zdarzeń jakie zaszły.
 		//printf("cam: %f, %f, %f\n", cam_x,cam_y,cam_z);
