@@ -31,6 +31,7 @@
     <ClInclude Include="shaderprogram.h" />
     <ClInclude Include="stb_easy_font.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="tiny_obj_loader.h" />
     <ClInclude Include="Train.h" />
   </ItemGroup>
@@ -44,6 +45,7 @@
     <ClCompile Include="main_file.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="shaderprogram.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Train.cpp" />
   </ItemGroup>
   <ItemGroup>

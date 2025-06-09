@@ -18,6 +18,7 @@ Infrastructure::~Infrastructure()
 {
 }
 
+
 void Infrastructure::Draw()
 {
 	float angle_x = 0.0f;
@@ -27,13 +28,13 @@ void Infrastructure::Draw()
 	podtorze->Clear();
 	podtorze->RotateX(angle_x);
 	podtorze->RotateY(angle_y);
-	//podtorze->drawSolid(); //Narysuj obiekt
+	podtorze->drawSolid(); //Narysuj obiekt
 
 	// Model - podklady
 	podklad->Clear();
 	podklad->RotateX(angle_x);
 	podklad->RotateY(angle_y);
-	//podklad->Translate(22775.0f, 650.0f, 0.0f);
+	podklad->Translate(22775.0f, 650.0f, 0.0f);
 
 	for (int i = 0; i < 60; i++) {
 		podklad->Translate(-600.0f, 0.0f, 0.0f);

@@ -3,7 +3,9 @@
 #define GLM_FORCE_RADIANS
 #define STB_EASY_FONT_IMPLEMENTATION
 #define TINYOBJLOADER_IMPLEMENTATION 
+#define STB_IMAGE_IMPLEMENTATION
 
+#include <stb_image.h>
 #include "OpenGLCommon.h"
 
 #include <stdlib.h>
@@ -15,8 +17,11 @@
 
 #include "BasicModel.h"
 #include "Camera.h"
+#include "Terrain.h"
 #include "Infrastructure.h"
 #include "Train.h"
+#include <iostream>
+
 
 float speed_x = 0;//[radiany/s]
 float speed_y = 0;//[radiany/s]
@@ -30,6 +35,7 @@ float lightIntensity = 1.0f; // start od zera
 const float lightMax = 1.0f;
 const float fadeDuration = 1.0f; // sekundy
 
+Terrain terrain;
 Infrastructure infrastructure;
 Train train;
 Camera camera;
@@ -186,9 +192,9 @@ void freeOpenGLProgram(GLFWwindow* window) {
 //Procedura rysująca zawartość sceny
 void drawScene(GLFWwindow* window) {
 	//************Tutaj umieszczaj kod rysujący obraz******************l
-	//glClearColor(0.309f, 1.0f, 0.905f, 1.0f);
+	glClearColor(0.309f, 1.0f, 0.905f, 1.0f);
 	//glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Wyczyść bufor koloru i bufor głębokości
 
 
@@ -215,18 +221,25 @@ void drawScene(GLFWwindow* window) {
 
 	glUniform1f(shader->u("uLightIntensity"), lightIntensity);
 
-	infrastructure.Draw();
-	train.Draw();
+	terrain.Draw();
+	//infrastructure.Draw();
+	//train.Draw();
 	//printf("acc: %f cs: %f\n", train.getAcceleration(), train.getSpeed());
 
 	//koniec sceny
 	glfwSwapBuffers(window); //Skopiuj bufor tylny do bufora przedniego
 }
 
+const float SIZE = 1000000.0f;
+const float HEIGHT = 500.0f;
+const int VERTEX_COUNT = 1000;
+
 
 int main(void)
 {
 	GLFWwindow* window; //Wskaźnik na obiekt reprezentujący okno
+
+	//unsigned int terrainVAO = LoadHeightmapTerrain("heightmap.png", 1000, 1000);
 
 	glfwSetErrorCallback(error_callback);//Zarejestruj procedurę obsługi błędów
 
@@ -264,6 +277,7 @@ int main(void)
 		glfwSetWindowTitle(window, windowTitle.c_str());
 
         //glfwSetTime(0); //Wyzeruj licznik czasu
+
 		drawScene(window); //Wykonaj procedurę rysującą
 		glfwPollEvents(); //Wykonaj procedury callback w zalezności od zdarzeń jakie zaszły.
 		//printf("cam: %f, %f, %f\n", cam_x,cam_y,cam_z);
